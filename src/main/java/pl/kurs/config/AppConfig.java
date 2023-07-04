@@ -15,6 +15,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.Collections;
+
 @EnableSwagger2
 @Configuration
 public class AppConfig {
@@ -22,6 +23,7 @@ public class AppConfig {
     public ModelMapper createModelMapper() {
         return new ModelMapper();
     }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

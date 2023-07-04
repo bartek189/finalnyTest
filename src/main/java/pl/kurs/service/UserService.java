@@ -25,11 +25,21 @@ public class UserService {
     private final ModelMapper modelMapper;
 
     @Transactional
-    public User saveNewUser(UserDto userDto) {
+    public User saveNewCreator(UserDto userDto) {
         userDto.setPassword(encoder.encode(userDto.getPassword()));
         User user = modelMapper.map(userDto, User.class);
         roleRepository.findByName(ERole.ROLE_CREATOR).ifPresentOrElse(role -> user.setRoles(Set.of(role)), () -> {
             Role role = roleRepository.save(new Role(ERole.ROLE_CREATOR));
+            user.setRoles(Set.of(role));
+        });
+        return repository.save(user);
+    }
+    @Transactional
+    public User saveNewUser(UserDto userDto) {
+        userDto.setPassword(encoder.encode(userDto.getPassword()));
+        User user = modelMapper.map(userDto, User.class);
+        roleRepository.findByName(ERole.ROLE_USER).ifPresentOrElse(role -> user.setRoles(Set.of(role)), () -> {
+            Role role = roleRepository.save(new Role(ERole.ROLE_USER));
             user.setRoles(Set.of(role));
         });
         return repository.save(user);

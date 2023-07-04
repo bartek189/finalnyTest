@@ -29,7 +29,6 @@ public class RectangleService {
 
         Shape shape = new Rectangle("RECTANGLE", LocalDateTime.now(), 1, user, LocalDateTime.now(), user, w * h, 2 * w + 2 * h, w, h);
         shapeRepository.save(shape);
-
         return createRectangleResponse(w, h, shape);
     }
 

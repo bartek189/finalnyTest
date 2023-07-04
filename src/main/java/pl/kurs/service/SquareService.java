@@ -16,7 +16,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SquareService {
-
     private final ShapeRepository shapeRepository;
     private final SecurityUtil securityUtil;
 
@@ -24,12 +23,11 @@ public class SquareService {
         String user = securityUtil.getUser().getUserName();
         List<Double> parameters = shapeRequest.getParameters();
         validateSquareParameter(parameters);
-
         double side = parameters.get(0);
-        Square shape = new Square("SQUARE", LocalDateTime.now(), 1, user, LocalDateTime.now(), user, side * side, side * 4, side);
 
-        shapeRepository.save(shape);
-        return createSquareResponse(side, shape);
+        Square square = new Square("SQUARE", LocalDateTime.now(), 1, user, LocalDateTime.now(), user, side * side, side * 4, side);
+        shapeRepository.save(square);
+        return createSquareResponse(side, square);
     }
 
     private void validateSquareParameter(List<Double> parameters) {

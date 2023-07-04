@@ -15,7 +15,12 @@ import pl.kurs.service.UserService;
 public class UserController {
     private final UserService service;
 
-    @PostMapping("/register")
+    @PostMapping("/register/creator")
+    public ResponseEntity<UserDto> addCreator(@RequestBody UserDto userDto) {
+        User user = service.saveNewCreator(userDto);
+        return ResponseEntity.status(201).body(new UserDto(user));
+    }
+    @PostMapping("/register/user")
     public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
         User user = service.saveNewUser(userDto);
         return ResponseEntity.status(201).body(new UserDto(user));

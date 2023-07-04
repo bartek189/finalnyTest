@@ -3,6 +3,7 @@ package pl.kurs.entity.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class Square extends Shape {
 
     private double side;
@@ -24,7 +26,4 @@ public class Square extends Shape {
         this.side = side;
     }
 
-    public Square(String type, LocalDateTime createdAt, int version, String createdBy, LocalDateTime lastModifiedAt, String lastModifiedBy, double area, double perimeter) {
-        super(type, createdAt, version, createdBy, lastModifiedAt, lastModifiedBy, area, perimeter);
-    }
 }

@@ -9,6 +9,7 @@ import pl.kurs.entity.response.CircleResponse;
 import pl.kurs.entity.response.ShapeResponse;
 import pl.kurs.repository.ShapeRepository;
 import pl.kurs.util.SecurityUtil;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CircleService {
     private final ShapeRepository shapeRepository;
+
     private final SecurityUtil securityUtil;
 
     public ShapeResponse createCircle(ShapeRequest shapeRequest) {
@@ -25,9 +27,7 @@ public class CircleService {
         validateCircleParameter(parameters);
 
         Shape shape = new Circle("CIRCLE", LocalDateTime.now(), 1, user, LocalDateTime.now(), user, Math.PI * r * r, 2 * Math.PI * r, r);
-
         shapeRepository.save(shape);
-
         return createCircleResponse(r, shape);
     }
 
@@ -44,6 +44,7 @@ public class CircleService {
         shapeResponse.setPerimeter(shape.getPerimeter());
         return shapeResponse;
     }
+
 
     private void validateCircleParameter(List<Double> parameters) {
         if (parameters.size() != 1) {

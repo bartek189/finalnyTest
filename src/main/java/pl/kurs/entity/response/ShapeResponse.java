@@ -12,10 +12,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShapeResponse {
-
     private Long id;
     private String type;
-
     private int version;
     private LocalDateTime createdAt;
     private String createdBy;
@@ -23,6 +21,4 @@ public class ShapeResponse {
     private String lastModifiedBy;
     private double perimeter;
     private double area;
-
-
 }

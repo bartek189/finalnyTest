@@ -19,8 +19,6 @@ public class RectangleCreator implements ShapeService {
 
     @Override
     public ShapeResponse createShape(ShapeRequest shapeRequest) {
-
-
         return service.createRectangle(shapeRequest);
     }
 }
