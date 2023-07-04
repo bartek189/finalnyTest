@@ -26,15 +26,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtRequestFilter filter;
     private final AppConfig appConfig;
 
-    private static final String[] AUTH_LIST = {
-            // -- swagger ui
-            "**/swagger-resources/**",
-            "/swagger-ui.html",
-            "/v2/api-docs",
-            "/webjars/**",
-            "/swagger-ui/**"
-    };
-
     @SneakyThrows
     public void configureGlobal(AuthenticationManagerBuilder auth) {
         auth.userDetailsService(service).passwordEncoder(appConfig.passwordEncoder());

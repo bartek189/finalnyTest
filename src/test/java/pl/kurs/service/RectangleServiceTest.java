@@ -43,7 +43,7 @@ class RectangleServiceTest {
 
         Mockito.when(securityUtil.getUser()).thenReturn(user);
 
-        ShapeRequest shapeRequest = new ShapeRequest("RECTANGLE", List.of(3.,2.));
+        ShapeRequest shapeRequest = new ShapeRequest("RECTANGLE", List.of(3., 2.));
 
         service.createRectangle(shapeRequest);
 
@@ -56,8 +56,8 @@ class RectangleServiceTest {
         assertEquals(10, result.getPerimeter());
         assertEquals("A", result.getCreatedBy());
         assertEquals("A", result.getLastModifiedBy());
-        assertEquals(3.,result.getWidth());
-        assertEquals(2.,result.getHeight());
+        assertEquals(3., result.getWidth());
+        assertEquals(2., result.getHeight());
     }
 
     @Test
@@ -90,7 +90,7 @@ class RectangleServiceTest {
             User user = new User("A", "B");
             Mockito.when(securityUtil.getUser()).thenReturn(user);
 
-            ShapeRequest shapeRequest = new ShapeRequest("RECTANGLE", List.of(0.,0.));
+            ShapeRequest shapeRequest = new ShapeRequest("RECTANGLE", List.of(0., 0.));
             service.createRectangle(shapeRequest);
 
         });

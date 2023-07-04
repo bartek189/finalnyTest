@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 import pl.kurs.entity.model.Role;
 import pl.kurs.entity.model.User;
+import pl.kurs.exception.UnauthorizedException;
 import pl.kurs.util.SecurityUtil;
 
 import static pl.kurs.entity.model.ERole.ROLE_CREATOR;
@@ -22,7 +23,7 @@ public class UserPermissionService {
         Role role = new Role(ROLE_CREATOR);
 
         if (user.getRoles().stream().noneMatch(u -> u.getName() == role.getName())) {
-            throw new IllegalStateException("UNAUTHORIZED");
+            throw new UnauthorizedException();
         }
     }
 }

@@ -173,6 +173,7 @@
                         <exclude>pl/kurs/util/SecurityUtil.*</exclude>
                         <exclude>pl/kurs/shapeCreator/**</exclude>
                         <exclude>pl/kurs/shapeFactory/**</exclude>
+                        <exclude>pl/kurs/service/UserService.*</exclude>
                         <exclude>pl/kurs/Main.*</exclude>
 
                     </excludes>

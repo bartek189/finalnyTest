@@ -70,7 +70,7 @@ class SquareServiceTest {
             User user = new User("A", "B");
             Mockito.when(securityUtil.getUser()).thenReturn(user);
 
-            ShapeRequest shapeRequest = new ShapeRequest("SQUARE", List.of(10.,1.));
+            ShapeRequest shapeRequest = new ShapeRequest("SQUARE", List.of(10., 1.));
 
             service.createSquare(shapeRequest);
 

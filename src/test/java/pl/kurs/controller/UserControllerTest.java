@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
+import pl.kurs.entity.model.ERole;
 import pl.kurs.entity.model.User;
 import pl.kurs.repository.UserRepository;
 
@@ -45,7 +46,7 @@ class UserControllerTest {
 
         String json = objectMapper.writeValueAsString(user);
 
-        String response = mvc.perform(post("/register")
+        String response = mvc.perform(post("/register/creator")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isCreated())

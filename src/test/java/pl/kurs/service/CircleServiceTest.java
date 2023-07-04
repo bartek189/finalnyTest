@@ -54,7 +54,7 @@ class CircleServiceTest {
         assertEquals(62.83185307179586, result.getPerimeter());
         assertEquals("A", result.getCreatedBy());
         assertEquals("A", result.getLastModifiedBy());
-        assertEquals(10.,result.getRadius());
+        assertEquals(10., result.getRadius());
 
     }
 
@@ -69,7 +69,7 @@ class CircleServiceTest {
             User user = new User("A", "B");
             Mockito.when(securityUtil.getUser()).thenReturn(user);
 
-            ShapeRequest shapeRequest = new ShapeRequest("CIRCLE", List.of(10.,1.));
+            ShapeRequest shapeRequest = new ShapeRequest("CIRCLE", List.of(10., 1.));
 
             service.createCircle(shapeRequest);
 

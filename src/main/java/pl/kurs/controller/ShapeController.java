@@ -9,23 +9,24 @@ import pl.kurs.entity.request.ShapeRequest;
 import pl.kurs.entity.response.ShapeResponse;
 import pl.kurs.service.ShapeControllerService;
 import pl.kurs.shapeFactory.ShapeFactory;
+
+import javax.validation.Valid;
 import java.util.Set;
 
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/shapes")
 public class ShapeController {
 
     private final ShapeFactory shapeFactory;
     private final ShapeControllerService service;
 
-    @PostMapping("/shapes")
-    public ResponseEntity<ShapeResponse> addShape(@RequestBody ShapeRequest shapeRequest) {
+    @PostMapping("/create")
+    public ResponseEntity<ShapeResponse> addShape(@RequestBody @Valid ShapeRequest shapeRequest) {
         ShapeResponse shapeResponse = shapeFactory.createShape(shapeRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(shapeResponse);
     }
-
     @GetMapping()
     public ResponseEntity<Set<Shape>> getShape(@RequestParam(value = "createdBy", required = false) String createdBy, @RequestParam(value = "type", required = false) String type,
                                                @RequestParam(value = "areaFrom", required = false) Double areaFrom, @RequestParam(value = "areaTo", required = false) Double areaTo,
