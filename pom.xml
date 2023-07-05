@@ -25,11 +25,11 @@
 
     <dependencies>
 
-<!--       <dependency>-->
-<!--           <groupId>io.jsonwebtoken</groupId>-->
-<!--           <artifactId>jjwt</artifactId>-->
-<!--           <version>0.9.1</version>-->
-<!--       </dependency>-->
+       <dependency>
+           <groupId>io.jsonwebtoken</groupId>
+           <artifactId>jjwt</artifactId>
+           <version>0.9.1</version>
+       </dependency>
 
         <dependency>
             <groupId>org.modelmapper</groupId>
@@ -38,11 +38,11 @@
         </dependency>
 
 
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-security</artifactId>-->
-<!--            <version>2.7.5</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>2.7.5</version>
+        </dependency>
 
         <dependency>
             <groupId>io.springfox</groupId>
@@ -142,6 +142,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
@@ -160,8 +161,24 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+                <configuration>
+                    <excludes>
+                        <exclude>pl/kurs/config/**</exclude>
+                        <exclude>pl/kurs/controller/**</exclude>
+                        <exclude>pl/kurs/entity/**</exclude>
+                        <exclude>pl/kurs/security/JwtAuthenticationEntryPoint.*</exclude>
+                        <exclude>pl/kurs/security/WebSecurityConfig.*</exclude>
+                        <exclude>pl/kurs/security/JwtRequestFilter.*</exclude>
+                        <exclude>pl/kurs/security/JwtTokenUtil.*</exclude>
+                        <exclude>pl/kurs/util/SecurityUtil.*</exclude>
+                        <exclude>pl/kurs/shapeCreator/**</exclude>
+                        <exclude>pl/kurs/shapeFactory/**</exclude>
+                        <exclude>pl/kurs/service/UserService.*</exclude>
+                        <exclude>pl/kurs/Main.*</exclude>
 
+                    </excludes>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
