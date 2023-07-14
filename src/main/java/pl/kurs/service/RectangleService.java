@@ -11,7 +11,9 @@ import pl.kurs.repository.ShapeRepository;
 import pl.kurs.util.SecurityUtil;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +30,10 @@ public class RectangleService {
         double h = parameters.get(1);
 
         Shape shape = new Rectangle("RECTANGLE", LocalDateTime.now(), 1, user, LocalDateTime.now(), user, w * h, 2 * w + 2 * h, w, h);
+        Map<String,Double> map = new HashMap<>();
+        map.put("width", w);
+        map.put("height", h);
+        shape.setParameters(map);
         shapeRepository.save(shape);
         return createRectangleResponse(w, h, shape);
     }

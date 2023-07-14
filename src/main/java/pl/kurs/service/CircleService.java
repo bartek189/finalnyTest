@@ -11,7 +11,7 @@ import pl.kurs.repository.ShapeRepository;
 import pl.kurs.util.SecurityUtil;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +26,11 @@ public class CircleService {
         double r = parameters.get(0);
         validateCircleParameter(parameters);
 
+
         Shape shape = new Circle("CIRCLE", LocalDateTime.now(), 1, user, LocalDateTime.now(), user, Math.PI * r * r, 2 * Math.PI * r, r);
+        Map<String,Double> map = new HashMap<>();
+        map.put("radius", r);
+        shape.setParameters(map);
         shapeRepository.save(shape);
         return createCircleResponse(r, shape);
     }

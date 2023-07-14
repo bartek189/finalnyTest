@@ -14,9 +14,8 @@ public class ShapeControllerService {
 
 
     public Set<Shape> getShapesByParameters(String createdBy, String type, Double areaFrom, Double areaTo, Double perimeterFrom,
-                                            Double perimeterTo, Double sideFrom, Double sideTo, Double radiusFrom, Double radiusTo,
-                                            Double widthFrom, Double widthTo, Double heightFrom, Double heightTo) {
-        return shapeRepository.searchShapes(createdBy, type, areaFrom, areaTo, perimeterFrom, perimeterTo, sideFrom, sideTo, radiusFrom, radiusTo, widthFrom, widthTo, heightFrom, heightTo);
+                                            Double perimeterTo, String parameterName, Double valueFrom, Double valueTo) {
+        return shapeRepository.searchShapes(parameterName, valueFrom, valueTo, createdBy, type, areaFrom, areaTo, perimeterFrom, perimeterTo);
     }
 
 }
