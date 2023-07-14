@@ -14,14 +14,13 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 public class Square extends Shape {
-
     private double side;
 
     @JsonCreator
-    public Square(@JsonProperty("type")String type,@JsonProperty("createdAt") LocalDateTime createdAt,@JsonProperty("version") int version
-            , @JsonProperty("createdBy")String createdBy, @JsonProperty("lastModifiedAt")LocalDateTime lastModifiedAt,@JsonProperty("lastModifiedBy") String lastModifiedBy
-            , @JsonProperty("area")double area
-            , @JsonProperty("perimeter")double perimeter, @JsonProperty("side")double side) {
+    public Square(@JsonProperty("type") String type, @JsonProperty("createdAt") LocalDateTime createdAt, @JsonProperty("version") int version
+            , @JsonProperty("createdBy") String createdBy, @JsonProperty("lastModifiedAt") LocalDateTime lastModifiedAt, @JsonProperty("lastModifiedBy") String lastModifiedBy
+            , @JsonProperty("area") double area
+            , @JsonProperty("perimeter") double perimeter, @JsonProperty("side") double side) {
         super(type, createdAt, version, createdBy, lastModifiedAt, lastModifiedBy, area, perimeter);
         this.side = side;
     }

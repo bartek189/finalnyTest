@@ -11,7 +11,9 @@ import pl.kurs.repository.ShapeRepository;
 import pl.kurs.util.SecurityUtil;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +27,12 @@ public class SquareService {
         validateSquareParameter(parameters);
         double side = parameters.get(0);
 
-        Square square = new Square("SQUARE", LocalDateTime.now(), 1, user, LocalDateTime.now(), user, side * side, side * 4, side);
-        shapeRepository.save(square);
-        return createSquareResponse(side, square);
+        Shape shape = new Square("SQUARE", LocalDateTime.now(), 1, user, LocalDateTime.now(), user, side * side, side * 4, side);
+        Map<String, Double> map = new HashMap<>();
+        map.put("side", side);
+        shape.setParameters(map);
+        shapeRepository.save(shape);
+        return createSquareResponse(side, shape);
     }
 
     private void validateSquareParameter(List<Double> parameters) {

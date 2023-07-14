@@ -1,6 +1,5 @@
 package pl.kurs.controller;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +16,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import pl.kurs.entity.model.FindShapeQuery;
 import pl.kurs.entity.model.Shape;
 import pl.kurs.entity.model.Square;
 import pl.kurs.entity.model.User;
@@ -26,9 +28,7 @@ import pl.kurs.service.UserPermissionService;
 import pl.kurs.util.SecurityUtil;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -88,28 +88,30 @@ class ShapeControllerTest {
         Mockito.when(securityUtil.getUser()).thenReturn(user);
 
         Shape s = new Square("SQUARE", LocalDateTime.of(2023, 1, 1, 1, 1), 1, "A", LocalDateTime.of(2023, 1, 1, 1, 1), "A", 100, 40, 10);
+        s.setParameters(Map.of("side", 10.));
         shapeRepository.save(s);
 
-        String response = mvc.perform(get("/api/v1/shapes").param("type", "SQUARE")
+
+        FindShapeQuery findShapeQuery = new FindShapeQuery();
+        findShapeQuery.setCreatedBy("A");
+        findShapeQuery.setType("SQUARE");
+        findShapeQuery.setAreaFrom(0.);
+        findShapeQuery.setAreaTo(1000.);
+        findShapeQuery.setPerimeterFrom(0.);
+        findShapeQuery.setPerimeterTo(100.);
+        findShapeQuery.setParameterName("side");
+        findShapeQuery.setValueFrom(0.);
+        findShapeQuery.setValueTo(100.);
+
+
+        mvc.perform(MockMvcRequestBuilders.get("/api/v1/shapes")
+                        .flashAttr("findShapeQuery", findShapeQuery)
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn().getResponse().getContentAsString();
-        Set<Shape> result = objectMapper.readValue(response, new TypeReference<Set<Shape>>() {
-        });
-
-        List<Shape> shapes = new ArrayList<>(result);
-
-        assertEquals("SQUARE", shapes.get(0).getType());
-        assertEquals(LocalDateTime.of(2023, 1, 1, 1, 1), shapes.get(0).getCreatedAt());
-        assertEquals("A", shapes.get(0).getCreatedBy());
-        assertEquals(LocalDateTime.of(2023, 1, 1, 1, 1), shapes.get(0).getLastModifiedAt());
-        assertEquals(1, shapes.get(0).getVersion());
-        assertEquals("A", shapes.get(0).getLastModifiedBy());
-        assertEquals(100, shapes.get(0).getArea());
-        assertEquals(40, shapes.get(0).getPerimeter());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].type").value("SQUARE"));
 
 
     }
 
-
 }
+

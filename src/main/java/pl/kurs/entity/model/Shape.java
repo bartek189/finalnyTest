@@ -1,17 +1,19 @@
 package pl.kurs.entity.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 @Getter
 @Setter
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@ToString
 public class Shape {
 
     @Id
@@ -25,6 +27,11 @@ public class Shape {
     private String lastModifiedBy;
     private double area;
     private double perimeter;
+
+
+    @JsonIgnore
+    @ElementCollection
+    private Map<String, Double> parameters;
 
 
     public Shape(String type, LocalDateTime createdAt, int version, String createdBy, LocalDateTime lastModifiedAt, String lastModifiedBy, double area, double perimeter) {
