@@ -1,21 +1,20 @@
 package pl.kurs.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import pl.kurs.entity.model.FindShapeQuery;
 import pl.kurs.entity.model.Shape;
-import pl.kurs.repository.ShapeRepository;
+import pl.kurs.repository.ShapeCriteriaRepository;
 
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class ShapeControllerService {
-    private final ShapeRepository shapeRepository;
+    private final ShapeCriteriaRepository shapeCriteriaRepository;
 
-
-    public Set<Shape> getShapesByParameters(String createdBy, String type, Double areaFrom, Double areaTo, Double perimeterFrom,
-                                            Double perimeterTo, String parameterName, Double valueFrom, Double valueTo) {
-        return shapeRepository.searchShapes(parameterName, valueFrom, valueTo, createdBy, type, areaFrom, areaTo, perimeterFrom, perimeterTo);
+    public Page<Shape> getShape(FindShapeQuery findShapeQuery) {
+        return shapeCriteriaRepository.findAllWithFilters(findShapeQuery);
     }
 
 }

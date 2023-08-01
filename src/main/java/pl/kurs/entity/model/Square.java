@@ -1,10 +1,9 @@
 package pl.kurs.entity.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,16 +12,32 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @NoArgsConstructor
+@ToString
+
 public class Square extends Shape {
     private double side;
+    private double area;
+    private double perimeter;
 
-    @JsonCreator
-    public Square(@JsonProperty("type") String type, @JsonProperty("createdAt") LocalDateTime createdAt, @JsonProperty("version") int version
-            , @JsonProperty("createdBy") String createdBy, @JsonProperty("lastModifiedAt") LocalDateTime lastModifiedAt, @JsonProperty("lastModifiedBy") String lastModifiedBy
-            , @JsonProperty("area") double area
-            , @JsonProperty("perimeter") double perimeter, @JsonProperty("side") double side) {
-        super(type, createdAt, version, createdBy, lastModifiedAt, lastModifiedBy, area, perimeter);
+
+    public Square(String type, String createdBy, LocalDateTime createdAt, int version, LocalDateTime lastModifiedAt, String lastModifiedBy, User user, double side) {
+        super(type, createdBy, createdAt, version, lastModifiedAt, lastModifiedBy, user);
         this.side = side;
     }
 
+    @Override
+    public double area() {
+        return side * side;
+    }
+
+    @Override
+    public double perimeter() {
+        return 4 * side;
+    }
+
+    public void setSide(double newSide) {
+        this.side = newSide;
+        this.area = area();
+        this.perimeter = perimeter();
+    }
 }

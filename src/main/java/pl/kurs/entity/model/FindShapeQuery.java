@@ -15,8 +15,9 @@ public class FindShapeQuery {
     private Double areaTo;
     private Double perimeterFrom;
     private Double perimeterTo;
-    private String parameterName;
-    private Double valueFrom;
-    private Double valueTo;
+    private Double parameterFrom;
+    private Double parameterTo;
+    private Double parameterFrom2;
+    private Double parameterTo2;
 
 }

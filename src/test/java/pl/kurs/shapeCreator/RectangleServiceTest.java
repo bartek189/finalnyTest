@@ -1,4 +1,4 @@
-package pl.kurs.service;
+package pl.kurs.shapeCreator;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RectangleServiceTest {
 
-    private RectangleService service;
+    private RectangleCreator rectangleCreator;
     private ShapeRepository repository;
     private SecurityUtil securityUtil;
 
@@ -28,7 +28,7 @@ class RectangleServiceTest {
     public void init() {
         repository = Mockito.mock(ShapeRepository.class);
         securityUtil = Mockito.mock(SecurityUtil.class);
-        service = new RectangleService(repository, securityUtil);
+        rectangleCreator = new RectangleCreator(repository, securityUtil);
     }
 
     @Test
@@ -45,7 +45,7 @@ class RectangleServiceTest {
 
         ShapeRequest shapeRequest = new ShapeRequest("RECTANGLE", List.of(3., 2.));
 
-        service.createRectangle(shapeRequest);
+        rectangleCreator.createShape(shapeRequest);
 
         ArgumentCaptor<Rectangle> argumentCaptor = ArgumentCaptor.forClass(Rectangle.class);
         Mockito.verify(repository).save(argumentCaptor.capture());
@@ -53,11 +53,11 @@ class RectangleServiceTest {
 
         assertEquals("RECTANGLE", result.getType());
         assertEquals(6, result.getArea());
-        assertEquals(10, result.getPerimeter());
+        assertEquals(8, result.getPerimeter());
         assertEquals("A", result.getCreatedBy());
         assertEquals("A", result.getLastModifiedBy());
-        assertEquals(3., result.getWidth());
-        assertEquals(2., result.getHeight());
+        assertEquals(2, result.getWidth());
+        assertEquals(3, result.getHeight());
     }
 
     @Test
@@ -73,7 +73,7 @@ class RectangleServiceTest {
 
             ShapeRequest shapeRequest = new ShapeRequest("RECTANGLE", List.of(3.));
 
-            service.createRectangle(shapeRequest);
+            rectangleCreator.createShape(shapeRequest);
 
         });
         assertEquals("Invalid number of parameters for rectangle", thrown.getMessage());
@@ -91,7 +91,7 @@ class RectangleServiceTest {
             Mockito.when(securityUtil.getUser()).thenReturn(user);
 
             ShapeRequest shapeRequest = new ShapeRequest("RECTANGLE", List.of(0., 0.));
-            service.createRectangle(shapeRequest);
+            rectangleCreator.createShape(shapeRequest);
 
         });
         assertEquals("Width or height must be greater than 0", thrown.getMessage());

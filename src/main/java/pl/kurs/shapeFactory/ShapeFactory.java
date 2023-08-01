@@ -2,7 +2,6 @@ package pl.kurs.shapeFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import pl.kurs.entity.model.Shape;
 import pl.kurs.entity.request.ShapeRequest;
 import pl.kurs.entity.response.ShapeResponse;
 import pl.kurs.service.UserPermissionService;

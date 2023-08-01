@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import pl.kurs.entity.model.ERole;
 import pl.kurs.entity.model.Role;
 import pl.kurs.entity.model.User;
+import pl.kurs.service.UserPermissionService;
 import pl.kurs.util.SecurityUtil;
 
 import java.util.Set;
