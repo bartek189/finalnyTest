@@ -1,6 +1,8 @@
 package pl.kurs.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +15,6 @@ import pl.kurs.service.ShapeControllerService;
 import pl.kurs.shapeFactory.ShapeFactory;
 
 import javax.validation.Valid;
-import java.util.Set;
-
 
 @RestController
 @RequiredArgsConstructor
@@ -23,7 +23,6 @@ public class ShapeController {
 
     private final ShapeFactory shapeFactory;
     private final ShapeControllerService service;
-    private final ShapeRepository shapeRepository;
 
     @PostMapping("/create")
     public ResponseEntity<ShapeResponse> addShape(@RequestBody @Valid ShapeRequest shapeRequest) {
@@ -31,21 +30,10 @@ public class ShapeController {
         return ResponseEntity.status(HttpStatus.CREATED).body(shapeResponse);
     }
 
-    @GetMapping()
-    public ResponseEntity<Set<Shape>> getShape(@ModelAttribute("findShapeQuery") FindShapeQuery findShapeQuery) {
-        Set<Shape> shapes = service.getShapesByParameters(findShapeQuery.getCreatedBy(),
-                findShapeQuery.getType(),
-                findShapeQuery.getAreaFrom(),
-                findShapeQuery.getAreaTo(),
-                findShapeQuery.getPerimeterFrom(),
-                findShapeQuery.getPerimeterTo(),
-                findShapeQuery.getParameterName(),
-                findShapeQuery.getValueFrom(),
-                findShapeQuery.getValueTo()
-
-        );
-
-        return ResponseEntity.status(HttpStatus.OK).body(shapes);
+    @GetMapping
+    public ResponseEntity<Page<Shape>> getEmployees(@ModelAttribute("findShapeQuery") FindShapeQuery findShapeQuery) {
+        return new ResponseEntity<>(service.getShape(findShapeQuery),
+                HttpStatus.OK);
     }
 }
 

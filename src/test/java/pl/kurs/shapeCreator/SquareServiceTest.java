@@ -1,4 +1,4 @@
-package pl.kurs.service;
+package pl.kurs.shapeCreator;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SquareServiceTest {
 
-    private SquareService service;
+    private SquareCreator createSquare;
     private ShapeRepository repository;
     private SecurityUtil securityUtil;
 
@@ -28,7 +28,7 @@ class SquareServiceTest {
     public void init() {
         repository = Mockito.mock(ShapeRepository.class);
         securityUtil = Mockito.mock(SecurityUtil.class);
-        service = new SquareService(repository, securityUtil);
+        createSquare = new SquareCreator(repository, securityUtil);
     }
 
     @Test
@@ -45,7 +45,7 @@ class SquareServiceTest {
 
         ShapeRequest shapeRequest = new ShapeRequest("SQUARE", List.of(10.));
 
-        service.createSquare(shapeRequest);
+        createSquare.createShape(shapeRequest);
 
         ArgumentCaptor<Square> argumentCaptor = ArgumentCaptor.forClass(Square.class);
         Mockito.verify(repository).save(argumentCaptor.capture());
@@ -72,7 +72,7 @@ class SquareServiceTest {
 
             ShapeRequest shapeRequest = new ShapeRequest("SQUARE", List.of(10., 1.));
 
-            service.createSquare(shapeRequest);
+            createSquare.createShape(shapeRequest);
 
         });
         assertEquals("Invalid number of parameters for square", thrown.getMessage());
@@ -90,7 +90,7 @@ class SquareServiceTest {
             Mockito.when(securityUtil.getUser()).thenReturn(user);
 
             ShapeRequest shapeRequest = new ShapeRequest("SQUARE", List.of(0.));
-            service.createSquare(shapeRequest);
+            createSquare.createShape(shapeRequest);
 
         });
         assertEquals("Side must be greater than 0", thrown.getMessage());

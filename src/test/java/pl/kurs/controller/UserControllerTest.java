@@ -10,9 +10,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
+import pl.kurs.entity.command.CreateUserCommand;
 import pl.kurs.entity.model.ERole;
 import pl.kurs.entity.model.User;
 import pl.kurs.repository.UserRepository;
+
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -42,11 +45,11 @@ class UserControllerTest {
     @SneakyThrows
     @Test
     void shouldSaveUser() {
-        User user = new User("B", "G");
+        CreateUserCommand command = new CreateUserCommand("B", "G", Set.of(ERole.ROLE_CREATOR));
 
-        String json = objectMapper.writeValueAsString(user);
+        String json = objectMapper.writeValueAsString(command);
 
-        String response = mvc.perform(post("/register/creator")
+        String response = mvc.perform(post("/register/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isCreated())
@@ -60,6 +63,4 @@ class UserControllerTest {
         assertEquals("B", result.getUserName());
         assertTrue(a);
     }
-
-
 }

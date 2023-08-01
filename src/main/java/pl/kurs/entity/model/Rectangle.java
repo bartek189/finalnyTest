@@ -1,7 +1,6 @@
 package pl.kurs.entity.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,15 +13,39 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 public class Rectangle extends Shape {
+
     private double width;
     private double height;
-    @JsonCreator
-    public Rectangle(@JsonProperty("type")String type,@JsonProperty("createdAt") LocalDateTime createdAt,@JsonProperty("version") int version
-            , @JsonProperty("createdBy")String createdBy, @JsonProperty("lastModifiedAt")LocalDateTime lastModifiedAt,@JsonProperty("lastModifiedBy") String lastModifiedBy
-            , @JsonProperty("area")double area
-            , @JsonProperty("perimeter")double perimeter, @JsonProperty("width") double width, @JsonProperty("height")double height) {
-        super(type, createdAt, version, createdBy, lastModifiedAt, lastModifiedBy, area, perimeter);
+    private double area;
+    private double perimeter;
+
+    public Rectangle(String type, String createdBy, LocalDateTime createdAt, int version, LocalDateTime lastModifiedAt, String lastModifiedBy, User user, double width, double height) {
+        super(type, createdBy, createdAt, version, lastModifiedAt, lastModifiedBy, user);
         this.width = width;
         this.height = height;
     }
+
+    @Override
+    public double area() {
+        return height * width;
+    }
+
+    @Override
+    public double perimeter() {
+        return 2 * (width + width);
+    }
+
+    public void setDimensions(double newHeight, double newWidth) {
+        this.width = newWidth;
+        this.height = newHeight;
+        this.area = area();
+        this.perimeter = perimeter();
+    }
 }
+
+
+
+
+
+
+

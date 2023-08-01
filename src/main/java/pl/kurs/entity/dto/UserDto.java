@@ -15,10 +15,12 @@ public class UserDto {
     private long id;
     private String userName;
     private String password;
+    private Integer createdShapes;
 
     public UserDto(User user) {
         this.id = user.getId();
         this.userName = user.getUserName();
         this.password = user.getPassword();
+        this.createdShapes = user.getCreatedShape().size();
     }
 }

@@ -1,4 +1,4 @@
-package pl.kurs.service;
+package pl.kurs.shapeCreator;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,8 +18,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CircleServiceTest {
-    private CircleService service;
+class CircleCreatorTest {
+    private CircleCreator circleCreator;
     private ShapeRepository repository;
     private SecurityUtil securityUtil;
 
@@ -27,7 +27,7 @@ class CircleServiceTest {
     public void init() {
         repository = Mockito.mock(ShapeRepository.class);
         securityUtil = Mockito.mock(SecurityUtil.class);
-        service = new CircleService(repository, securityUtil);
+        circleCreator = new CircleCreator(repository, securityUtil);
     }
 
     @Test
@@ -43,7 +43,7 @@ class CircleServiceTest {
 
         ShapeRequest shapeRequest = new ShapeRequest("CIRCLE", List.of(10.));
 
-        service.createCircle(shapeRequest);
+        circleCreator.createShape(shapeRequest);
 
         ArgumentCaptor<Circle> argumentCaptor = ArgumentCaptor.forClass(Circle.class);
         Mockito.verify(repository).save(argumentCaptor.capture());
@@ -71,7 +71,7 @@ class CircleServiceTest {
 
             ShapeRequest shapeRequest = new ShapeRequest("CIRCLE", List.of(10., 1.));
 
-            service.createCircle(shapeRequest);
+            circleCreator.createShape(shapeRequest);
 
         });
         assertEquals("Invalid number of parameters for circle", thrown.getMessage());
@@ -89,10 +89,9 @@ class CircleServiceTest {
             Mockito.when(securityUtil.getUser()).thenReturn(user);
 
             ShapeRequest shapeRequest = new ShapeRequest("CIRCLE", List.of(0.));
-            service.createCircle(shapeRequest);
+            circleCreator.createShape(shapeRequest);
 
         });
         assertEquals("Radius must be greater than 0", thrown.getMessage());
     }
-
 }

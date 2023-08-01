@@ -1,28 +1,41 @@
 package pl.kurs.entity.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.Entity;
 import java.time.LocalDateTime;
+
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor
+
 public class Circle extends Shape {
 
     private double radius;
+    private double area;
+    private double perimeter;
 
-    @JsonCreator
-    public Circle(@JsonProperty("type")String type,@JsonProperty("createdAt") LocalDateTime createdAt,@JsonProperty("version") int version
-            , @JsonProperty("createdBy")String createdBy, @JsonProperty("lastModifiedAt")LocalDateTime lastModifiedAt,@JsonProperty("lastModifiedBy") String lastModifiedBy
-            , @JsonProperty("area")double area
-            , @JsonProperty("perimeter")double perimeter, @JsonProperty("radius")double radius) {
-        super(type, createdAt, version, createdBy, lastModifiedAt, lastModifiedBy, area, perimeter);
+
+    public Circle(String type, String createdBy, LocalDateTime createdAt, int version, LocalDateTime lastModifiedAt, String lastModifiedBy, User user, double radius) {
+        super(type, createdBy, createdAt, version, lastModifiedAt, lastModifiedBy, user);
         this.radius = radius;
+    }
+
+    @Override
+    public double area() {
+        return Math.PI * radius * radius;
+    }
+
+    @Override
+    public double perimeter() {
+        return 2 * Math.PI * radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+        this.area = area();
+        this.perimeter = perimeter();
     }
 }
 
