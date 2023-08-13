@@ -39,10 +39,8 @@ public class SquareCreator implements ShapeService {
         validateSquareParameter(parameters);
         double side = parameters.get(0);
 
-        Shape shape = new Square("SQUARE", user.getUserName(), LocalDateTime.now(), 1, LocalDateTime.now(), user.getUserName(), user, side);
-        Map<String, Double> map = new HashMap<>();
-        map.put("side", side);
-        ((Square) shape).setSide(side);
+        Square shape = new Square("SQUARE", user.getUserName(), LocalDateTime.now(), 1, LocalDateTime.now(), user.getUserName(), user, side);
+
         shapeRepository.save(shape);
         return createSquareResponse(side, shape);
     }

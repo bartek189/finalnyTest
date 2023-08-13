@@ -40,9 +40,7 @@ public class CircleCreator implements ShapeService {
 
 
         Shape shape = new Circle("CIRCLE", user.getUserName(), LocalDateTime.now(), 1, LocalDateTime.now(), user.getUserName(), user, r);
-        Map<String, Double> map = new HashMap<>();
-        map.put("radius", r);
-        ((Circle) shape).setRadius(r);
+
         shapeRepository.save(shape);
         return createCircleResponse(r, shape);
     }
