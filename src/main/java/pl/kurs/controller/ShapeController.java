@@ -14,7 +14,7 @@ import pl.kurs.repository.ShapeRepository;
 import pl.kurs.service.ShapeControllerService;
 import pl.kurs.shapeFactory.ShapeFactory;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor

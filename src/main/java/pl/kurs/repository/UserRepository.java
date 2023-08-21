@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import pl.kurs.entity.model.User;
 
-import javax.persistence.LockModeType;
+import jakarta.persistence.LockModeType;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {

@@ -1,6 +1,8 @@
 package pl.kurs.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -17,7 +19,7 @@ import pl.kurs.entity.response.JwtResponseDto;
 import pl.kurs.security.JwtTokenUtil;
 import pl.kurs.security.JwtUserDetailsService;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 
 @RequiredArgsConstructor
 @CrossOrigin
@@ -25,6 +27,8 @@ import javax.transaction.Transactional;
 public class JwtControllerService {
 
     private final JwtTokenUtil jwtTokenUtil;
+
+
     private final AuthenticationManager authenticationManager;
 
     public JwtResponseDto createAuthenticationToken(@RequestBody JwtRequestDto requestDto) throws Exception {

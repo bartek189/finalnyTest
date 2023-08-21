@@ -3,7 +3,7 @@ package pl.kurs.entity.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 import java.time.LocalDateTime;
 
 @Getter

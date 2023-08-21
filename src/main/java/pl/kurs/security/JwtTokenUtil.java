@@ -1,20 +1,27 @@
 package pl.kurs.security;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.security.Key;
 import java.util.*;
 import java.util.function.Function;
 
 @Component
+@RequiredArgsConstructor
 public class JwtTokenUtil {
     public static final long JWT_TOKEN_VALIDITY = 300000;
     private static final String ROLES_CLAIM = "roles";
     @Value("${jwt.token}")
     private String secret;
+
+
 
 
     public String getUserNameFromToken(String token) {
@@ -33,7 +40,10 @@ public class JwtTokenUtil {
         List<String> roles = authorities.stream().map(GrantedAuthority::getAuthority).toList();
         Map<String, Object> claims = new HashMap<>();
         claims.put(ROLES_CLAIM, roles);
-        return doGenerateToken(claims, userDetails.getUsername());
+        return Jwts.builder().setClaims(claims).setSubject(userDetails.getUsername())
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
     }
 
 
@@ -68,7 +78,13 @@ public class JwtTokenUtil {
                 .setSubject(subject)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(getSigningKey(), SignatureAlgorithm.ES256)
                 .compact();
     }
+
+    private Key getSigningKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(secret);
+        return Keys.hmacShaKeyFor(keyBytes);
+    }
+
 }
