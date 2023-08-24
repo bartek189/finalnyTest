@@ -35,12 +35,6 @@ public abstract class Shape {
     @JsonBackReference
     private User user;
 
-
-    public abstract double area();
-
-    public abstract double perimeter();
-
-
     public Shape(String type, String createdBy, LocalDateTime createdAt, int version, LocalDateTime lastModifiedAt, String lastModifiedBy, User user) {
         this.type = type;
         this.createdBy = createdBy;

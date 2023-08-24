@@ -63,8 +63,8 @@ public class SquareCreator implements ShapeService {
         shapeResponse.setCreatedBy(shape.getUser().getUserName());
         shapeResponse.setLastModifiedAt(shape.getLastModifiedAt());
         shapeResponse.setLastModifiedBy(shape.getLastModifiedBy());
-        shapeResponse.setArea(shape.area());
-        shapeResponse.setPerimeter(shape.perimeter());
+        shapeResponse.setArea(side * side);
+        shapeResponse.setPerimeter(4*side);
         return shapeResponse;
     }
 }

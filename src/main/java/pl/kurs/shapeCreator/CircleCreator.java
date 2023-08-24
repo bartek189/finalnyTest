@@ -39,7 +39,7 @@ public class CircleCreator implements ShapeService {
         validateCircleParameter(parameters);
 
 
-        Shape shape = new Circle("CIRCLE", user.getUserName(), LocalDateTime.now(), 1, LocalDateTime.now(), user.getUserName(), user, r);
+        Circle shape = new Circle("CIRCLE", user.getUserName(), LocalDateTime.now(), 1, LocalDateTime.now(), user.getUserName(), user, r);
 
         shapeRepository.save(shape);
         return createCircleResponse(r, shape);
@@ -56,8 +56,8 @@ public class CircleCreator implements ShapeService {
         shapeResponse.setCreatedBy(user.getUserName());
         shapeResponse.setLastModifiedAt(shape.getLastModifiedAt());
         shapeResponse.setLastModifiedBy(shape.getLastModifiedBy());
-        shapeResponse.setArea(shape.area());
-        shapeResponse.setPerimeter(shape.perimeter());
+        shapeResponse.setArea(Math.PI*Math.pow(r,2));
+        shapeResponse.setPerimeter(2*Math.PI*r);
         return shapeResponse;
     }
 

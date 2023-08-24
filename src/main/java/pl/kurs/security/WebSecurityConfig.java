@@ -28,7 +28,7 @@ public class WebSecurityConfig {
 
 
     private static final String[] AUTH_LIST = {
-           "/h2-console/**",
+            "/h2-console/**",
             "/authenticate",
             "/register/users"
 
@@ -71,6 +71,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                .headers().frameOptions().disable().and()
                 .authorizeHttpRequests()
                 .requestMatchers(AUTH_LIST)
                 .permitAll()
@@ -85,7 +86,7 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
-        
+
         return http.build();
     }
 }

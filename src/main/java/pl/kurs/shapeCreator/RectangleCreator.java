@@ -38,7 +38,7 @@ public class RectangleCreator implements ShapeService {
         double w = parameters.get(0);
         double h = parameters.get(1);
 
-        Shape shape = new Rectangle("RECTANGLE", user.getUserName(), LocalDateTime.now(), 1, LocalDateTime.now(), user.getUserName(), user, w, h);
+        Rectangle shape = new Rectangle("RECTANGLE", user.getUserName(), LocalDateTime.now(), 1, LocalDateTime.now(), user.getUserName(), user, w, h);
 
         shapeRepository.save(shape);
         return createRectangleResponse(w, h, shape);
@@ -63,8 +63,8 @@ public class RectangleCreator implements ShapeService {
         shapeResponse.setVersion(shape.getVersion());
         shapeResponse.setLastModifiedAt(shape.getLastModifiedAt());
         shapeResponse.setLastModifiedBy(shape.getLastModifiedBy());
-        shapeResponse.setArea(shape.area());
-        shapeResponse.setPerimeter(shape.perimeter());
+        shapeResponse.setArea(w*h);
+        shapeResponse.setPerimeter(2*(w+h));
         return shapeResponse;
     }
 }

@@ -14,7 +14,6 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "users")
-@ToString
 public class User {
 
     @Id
