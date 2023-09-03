@@ -1,11 +1,10 @@
 package pl.kurs.entity.model;
 
+import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
-import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter

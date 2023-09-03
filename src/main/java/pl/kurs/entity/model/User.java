@@ -1,10 +1,10 @@
 package pl.kurs.entity.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.*;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,6 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "users")
+@ToString
 public class User {
 
     @Id

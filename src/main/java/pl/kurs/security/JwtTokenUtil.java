@@ -22,8 +22,6 @@ public class JwtTokenUtil {
     private String secret;
 
 
-
-
     public String getUserNameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }

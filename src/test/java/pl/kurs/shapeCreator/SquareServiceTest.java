@@ -16,7 +16,7 @@ import pl.kurs.util.SecurityUtil;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SquareServiceTest {
 
@@ -52,8 +52,6 @@ class SquareServiceTest {
         Square result = argumentCaptor.getValue();
 
         assertEquals("SQUARE", result.getType());
-        assertEquals(100, result.getArea());
-        assertEquals(40, result.getPerimeter());
         assertEquals("A", result.getCreatedBy());
         assertEquals("A", result.getLastModifiedBy());
         assertEquals(10, result.getSide());

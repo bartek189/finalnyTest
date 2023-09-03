@@ -13,9 +13,7 @@ import pl.kurs.shapeFactory.ShapeService;
 import pl.kurs.util.SecurityUtil;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -56,8 +54,6 @@ public class CircleCreator implements ShapeService {
         shapeResponse.setCreatedBy(user.getUserName());
         shapeResponse.setLastModifiedAt(shape.getLastModifiedAt());
         shapeResponse.setLastModifiedBy(shape.getLastModifiedBy());
-        shapeResponse.setArea(Math.PI*Math.pow(r,2));
-        shapeResponse.setPerimeter(2*Math.PI*r);
         return shapeResponse;
     }
 

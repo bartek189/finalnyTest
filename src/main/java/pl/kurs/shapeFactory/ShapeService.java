@@ -8,4 +8,6 @@ public interface ShapeService {
     String getSupportedType();
 
     ShapeResponse createShape(ShapeRequest shapeRequest);
+
+
 }

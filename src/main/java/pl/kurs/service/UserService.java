@@ -2,11 +2,9 @@ package pl.kurs.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import pl.kurs.entity.command.CreateUserCommand;
 import pl.kurs.entity.dto.UserCreatedShapesDto;
 import pl.kurs.entity.model.Role;
@@ -30,14 +28,14 @@ public class UserService {
         User user = modelMapper.map(userCommand, User.class);
 
 
-        Role role = roleRepository.findByName(userCommand.getRoleName()).orElseThrow(); // TODO jakis custom wyjatek
+        Role role = roleRepository.findByName(userCommand.getRoleName()).orElseThrow();
         user.setRoles(Set.of(role));
 
         return repository.save(user);
     }
 
     public UserCreatedShapesDto shapes(String name) {
-        User user = repository.findByIdWithShapes(name).get(); // TODO i tu tez
+        User user = repository.findByIdWithShapes(name).get();
         Integer shapes = user.getCreatedShape().size();
         UserCreatedShapesDto userCreatedShapes = new UserCreatedShapesDto(user.getUserName(), shapes);
         return userCreatedShapes;

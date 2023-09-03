@@ -13,9 +13,7 @@ import pl.kurs.shapeFactory.ShapeService;
 import pl.kurs.util.SecurityUtil;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -63,8 +61,6 @@ public class RectangleCreator implements ShapeService {
         shapeResponse.setVersion(shape.getVersion());
         shapeResponse.setLastModifiedAt(shape.getLastModifiedAt());
         shapeResponse.setLastModifiedBy(shape.getLastModifiedBy());
-        shapeResponse.setArea(w*h);
-        shapeResponse.setPerimeter(2*(w+h));
         return shapeResponse;
     }
 }

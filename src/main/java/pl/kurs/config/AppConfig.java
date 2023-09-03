@@ -5,8 +5,10 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -47,31 +49,14 @@ public class AppConfig {
     }
 
 
-//    @Bean
-//    public Docket api() {
-//        return new Docket(DocumentationType.SWAGGER_2)
-//                .select()
-//                .apis(RequestHandlerSelectors.any())
-//                .paths(PathSelectors.any())
-//                .build()
-//                .pathMapping("/")
-//                .globalOperationParameters(
-//                        Collections.singletonList(new ParameterBuilder()
-//                                .name("Authorization")
-//                                .description("JWT Authorization token")
-//                                .modelRef(new ModelRef("string"))
-//                                .parameterType("header")
-//                                .required(false)
-//                                .build()));
-//    }
 
     private final DataSource dataSource;
 
-    @PostConstruct
+    @EventListener(ApplicationReadyEvent.class)
     public void init() {
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
-            statement.execute("CREATE VIEW ShapeWithParameters AS SELECT DTYPE, ID, CREATED_AT, CREATED_BY, LAST_MODIFIED_AT, LAST_MODIFIED_BY, TYPE, VERSION FROM SHAPE");
+            statement.execute("CREATE VIEW  SHAPEWITHPARAMETERS AS SELECT DTYPE, ID, CREATED_AT,CREATED_BY,LAST_MODIFIED_AT,LAST_MODIFIED_BY,TYPE,VERSION,SIDE,WIDTH,HEIGHT,RADIUS,CASE WHEN TYPE = 'CIRCLE' THEN  PI() * RADIUS * RADIUS WHEN TYPE = 'RECTANGLE' THEN WIDTH * HEIGHT When TYPE = 'SQUARE' THEN SIDE*SIDE ELSE NULL END AS area, CASE WHEN TYPE = 'CIRCLE' THEN 2 * PI() * RADIUS WHEN TYPE = 'RECTANGLE' THEN 2 * (WIDTH + HEIGHT) WHEN TYPE = 'SQUARE' THEN 4 * SIDE ELSE NULL END AS perimeter FROM SHAPE");
         } catch (SQLException e) {
         }
     }

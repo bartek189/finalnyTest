@@ -3,7 +3,6 @@ package pl.kurs.util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-
 import pl.kurs.entity.model.User;
 import pl.kurs.repository.UserRepository;
 

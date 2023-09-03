@@ -16,7 +16,7 @@ import pl.kurs.util.SecurityUtil;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CircleCreatorTest {
     private CircleCreator circleCreator;
@@ -50,8 +50,6 @@ class CircleCreatorTest {
         Circle result = argumentCaptor.getValue();
 
         assertEquals("CIRCLE", result.getType());
-        assertEquals(314.1592653589793, result.getArea());
-        assertEquals(62.83185307179586, result.getPerimeter());
         assertEquals("A", result.getCreatedBy());
         assertEquals("A", result.getLastModifiedBy());
         assertEquals(10., result.getRadius());

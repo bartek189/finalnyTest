@@ -1,9 +1,6 @@
 package pl.kurs.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -11,15 +8,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 import pl.kurs.entity.request.JwtRequestDto;
 import pl.kurs.entity.response.JwtResponseDto;
 import pl.kurs.security.JwtTokenUtil;
-import pl.kurs.security.JwtUserDetailsService;
-
-import jakarta.transaction.Transactional;
 
 @RequiredArgsConstructor
 @CrossOrigin

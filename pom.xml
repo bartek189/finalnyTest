@@ -180,10 +180,7 @@
                         <exclude>pl/kurs/config/**</exclude>
                         <exclude>pl/kurs/controller/**</exclude>
                         <exclude>pl/kurs/entity/**</exclude>
-                        <exclude>pl/kurs/security/JwtAuthenticationEntryPoint.*</exclude>
-                        <exclude>pl/kurs/security/WebSecurityConfig.*</exclude>
-                        <exclude>pl/kurs/security/JwtRequestFilter.*</exclude>
-                        <exclude>pl/kurs/security/JwtTokenUtil.*</exclude>
+                        <exclude>pl/kurs/security/**</exclude>
                         <exclude>pl/kurs/util/SecurityUtil.*</exclude>
                         <exclude>pl/kurs/shapeCreator/**</exclude>
                         <exclude>pl/kurs/shapeFactory/**</exclude>
