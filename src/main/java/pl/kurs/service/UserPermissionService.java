@@ -1,6 +1,7 @@
 package pl.kurs.service;
 
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 import pl.kurs.entity.model.Role;
@@ -20,9 +21,8 @@ public class UserPermissionService {
     public void validateRequest() {
 
         User user = securityUtil.getUser();
-        Role role = new Role(ROLE_CREATOR);
 
-        if (user.getRoles().stream().noneMatch(u -> u.getName() == role.getName())) {
+        if (user.getRoles().stream().noneMatch(u -> u.getName().equals(ROLE_CREATOR))) {
             throw new UnauthorizedException();
         }
     }

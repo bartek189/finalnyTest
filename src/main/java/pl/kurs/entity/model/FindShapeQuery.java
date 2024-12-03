@@ -9,15 +9,16 @@ import lombok.*;
 @ToString
 public class FindShapeQuery {
 
-    private String createdBy;
+    private String created_By;
     private String type;
     private Double areaFrom;
     private Double areaTo;
     private Double perimeterFrom;
     private Double perimeterTo;
-    private Double parameterFrom;
-    private Double parameterTo;
-    private Double parameterFrom2;
-    private Double parameterTo2;
+    private Double side;
+    private Double radius;
+    private Double height;
+    private Double width;
+
 
 }

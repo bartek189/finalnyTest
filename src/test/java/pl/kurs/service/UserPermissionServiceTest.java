@@ -3,7 +3,6 @@ package pl.kurs.service;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -11,12 +10,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import pl.kurs.entity.model.ERole;
 import pl.kurs.entity.model.Role;
 import pl.kurs.entity.model.User;
-import pl.kurs.service.UserPermissionService;
 import pl.kurs.util.SecurityUtil;
 
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserPermissionServiceTest {
 

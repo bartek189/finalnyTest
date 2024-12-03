@@ -9,4 +9,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RectangleResponse extends ShapeResponse {
     private double width;
-    private double height;}
+    private double height;
+}

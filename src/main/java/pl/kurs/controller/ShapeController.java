@@ -1,20 +1,18 @@
 package pl.kurs.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.kurs.entity.model.FindShapeQuery;
-import pl.kurs.entity.model.Shape;
 import pl.kurs.entity.request.ShapeRequest;
 import pl.kurs.entity.response.ShapeResponse;
-import pl.kurs.repository.ShapeRepository;
-import pl.kurs.service.ShapeControllerService;
+import pl.kurs.repository.ShapeQueryRepository;
 import pl.kurs.shapeFactory.ShapeFactory;
 
-import javax.validation.Valid;
+import java.sql.SQLException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,7 +20,7 @@ import javax.validation.Valid;
 public class ShapeController {
 
     private final ShapeFactory shapeFactory;
-    private final ShapeControllerService service;
+    private final ShapeQueryRepository shapeQueryRepository;
 
     @PostMapping("/create")
     public ResponseEntity<ShapeResponse> addShape(@RequestBody @Valid ShapeRequest shapeRequest) {
@@ -31,11 +29,12 @@ public class ShapeController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Shape>> getEmployees(@ModelAttribute("findShapeQuery") FindShapeQuery findShapeQuery) {
-        return new ResponseEntity<>(service.getShape(findShapeQuery),
-                HttpStatus.OK);
+    public ResponseEntity<List<ShapeResponse>> getShape(@ModelAttribute("findShapeQuery") FindShapeQuery query) throws SQLException {
+        List<ShapeResponse> shapeSet = shapeQueryRepository.findAllShape(query);
+        return ResponseEntity.status(HttpStatus.OK).body(shapeSet);
     }
 }
+
 
 
 

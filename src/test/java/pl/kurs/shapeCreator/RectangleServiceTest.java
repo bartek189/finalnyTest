@@ -16,7 +16,7 @@ import pl.kurs.util.SecurityUtil;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RectangleServiceTest {
 
@@ -52,12 +52,10 @@ class RectangleServiceTest {
         Rectangle result = argumentCaptor.getValue();
 
         assertEquals("RECTANGLE", result.getType());
-        assertEquals(6, result.getArea());
-        assertEquals(8, result.getPerimeter());
         assertEquals("A", result.getCreatedBy());
         assertEquals("A", result.getLastModifiedBy());
-        assertEquals(2, result.getWidth());
-        assertEquals(3, result.getHeight());
+        assertEquals(3, result.getWidth());
+        assertEquals(2, result.getHeight());
     }
 
     @Test

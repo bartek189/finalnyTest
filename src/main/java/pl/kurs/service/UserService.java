@@ -2,13 +2,11 @@ package pl.kurs.service;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import pl.kurs.entity.command.CreateUserCommand;
-import pl.kurs.entity.model.ERole;
+import pl.kurs.entity.dto.UserCreatedShapesDto;
 import pl.kurs.entity.model.Role;
 import pl.kurs.entity.model.User;
 import pl.kurs.repository.RoleRepository;
@@ -28,18 +26,18 @@ public class UserService {
     public User saveNewCreator(CreateUserCommand userCommand) {
         userCommand.setPassword(encoder.encode(userCommand.getPassword()));
         User user = modelMapper.map(userCommand, User.class);
-        if (userCommand.getRoles().contains(ERole.ROLE_CREATOR)) {
-            roleRepository.findByName(ERole.ROLE_CREATOR).ifPresentOrElse(role -> user.setRoles(Set.of(role)), () -> {
-                Role role = roleRepository.save(new Role(ERole.ROLE_CREATOR));
-                user.setRoles(Set.of(role));
-            });
-        }
-        if (userCommand.getRoles().contains(ERole.ROLE_USER)) {
-            roleRepository.findByName(ERole.ROLE_USER).ifPresentOrElse(role -> user.setRoles(Set.of(role)), () -> {
-                Role role = roleRepository.save(new Role(ERole.ROLE_USER));
-                user.setRoles(Set.of(role));
-            });
-        }
+
+
+        Role role = roleRepository.findByName(userCommand.getRoleName()).orElseThrow();
+        user.setRoles(Set.of(role));
+
         return repository.save(user);
+    }
+
+    public UserCreatedShapesDto shapes(String name) {
+        User user = repository.findByIdWithShapes(name).get();
+        Integer shapes = user.getCreatedShape().size();
+        UserCreatedShapesDto userCreatedShapes = new UserCreatedShapesDto(user.getUserName(), shapes);
+        return userCreatedShapes;
     }
 }

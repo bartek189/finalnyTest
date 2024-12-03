@@ -5,5 +5,5 @@ import lombok.ToString;
 @ToString
 
 public enum ERole {
-    ROLE_CREATOR,ROLE_USER
+    ROLE_CREATOR, ROLE_USER
 }

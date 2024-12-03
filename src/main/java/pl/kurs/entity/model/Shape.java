@@ -1,13 +1,11 @@
 package pl.kurs.entity.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -34,12 +32,6 @@ public abstract class Shape {
     @ToString.Exclude
     @JsonBackReference
     private User user;
-
-
-    public abstract double area();
-
-    public abstract double perimeter();
-
 
     public Shape(String type, String createdBy, LocalDateTime createdAt, int version, LocalDateTime lastModifiedAt, String lastModifiedBy, User user) {
         this.type = type;
